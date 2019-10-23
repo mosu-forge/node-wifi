@@ -18,8 +18,19 @@ function scanWifi(config, callback) {
           .toString('utf8')
           .split('\r')
           .join('')
-          .split('\n')
-          .slice(5, scanResults.length);
+          .split('\n');
+
+        var skipLines = 0;
+        var foundFirst = false;
+        while (skipLines < scanResults.length && !foundFirst) {
+            if (scanResults[skipLines].includes('SSID')) {
+                foundFirst = true;
+            } else {
+                skipLines++;
+            }
+        }
+
+        scanResults = scanResults.slice(skipLines);
 
         var numNetworks = -1;
         var currentLine = 0;

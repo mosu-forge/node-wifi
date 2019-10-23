@@ -57,7 +57,7 @@ function connectToWifi(config, ap, callback) {
       return execCommand(cmd, params);
     })
     .then(function() {
-      return execCommand('del ".\\nodeWifiConnect.xml"');
+      return execCommand('cmd', ['/c', 'del', 'nodeWifiConnect.xml']);
     })
     .then(function() {
       callback && callback();
